@@ -5,47 +5,44 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AvaloniaTest.Materials">
     <Grid Margin="20">
-	    <Grid.RowDefinitions>
+        <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition  Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-	    <Label Grid.Row="0" Content="Materials Page"
-		       HorizontalAlignment="Left"
-		       VerticalAlignment="Center"
-                   FontSize="24"/>
-        <Button Margin="0 0 0 10" Grid.Row="1" Tag="{Binding}" Content="+ Добавить"
-                                        Background="{StaticResource AccentColor}"
-                                        Foreground="White"
-                                        Name="Add"
-                                        Click="Add_Click"/>
-        <DataGrid Grid.Row="2" BorderBrush="#d7d7d7" BorderThickness="1" Name="dgMaterials">
-			<DataGrid.Columns>
+
+        <Label Grid.Row="0" Content="Materials Page"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               FontSize="24"/>
+
+        <Button Margin="0 0 0 10" Grid.Row="1" Content="+ Добавить"
+                Background="{StaticResource AccentColor}"
+                Foreground="White"
+                Name="Add"
+                Click="Add_Click"/>
+
+        <DataGrid Grid.Row="2"
+                  BorderBrush="#d7d7d7"
+                  BorderThickness="1"
+                  Name="dgMaterials"
+                  AutoGenerateColumns="False">
+
+            <DataGrid.Columns>
 
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
-
                 <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="Auto"/>
+                <DataGridTextColumn Header="Тип материала" Binding="{Binding MaterialType.Name}" Width="Auto"/>
+                <DataGridTextColumn Header="Цена за ед." Binding="{Binding UnitPrice, StringFormat={}{0:F2}}" Width="Auto"/>
+                <DataGridTextColumn Header="Кол-во на складе" Binding="{Binding QuantityInStock, StringFormat={}{0:F2}}" Width="Auto"/>
+                <DataGridTextColumn Header="Мин. кол-во" Binding="{Binding MinimumQuantity, StringFormat={}{0:F2}}" Width="Auto"/>
+                <DataGridTextColumn Header="Кол-во в упаковке" Binding="{Binding QuantityInPackage}" Width="Auto"/>
+                <DataGridTextColumn Header="Ед. изм." Binding="{Binding UnitOfMeasure}" Width="Auto"/>
 
-                <DataGridTextColumn Header="Тип материала" 
-                                    Binding="{Binding MaterialType.Name}" Width="Auto"/>
-
-                <DataGridTextColumn Header="Цена за ед." 
-                                    Binding="{Binding UnitPrice, StringFormat={}{0:F2}}" 
-                                    Width="Auto" />
-
-                <DataGridTextColumn Header="Кол-во на складе" 
-                                    Binding="{Binding QuantityInStock, StringFormat={}{0:F2}}" 
-                                    Width="Auto" />
-
-                <DataGridTextColumn Header="Мин. кол-во" 
-                                    Binding="{Binding MinimumQuantity, StringFormat={}{0:F2}}" 
-                                    Width="Auto" />
-
-                <DataGridTextColumn Header="Кол-во в упаковке" 
-                                    Binding="{Binding QuantityInPackage}" Width="Auto" />
-
-                <DataGridTextColumn Header="Ед. изм." 
-                                    Binding="{Binding UnitOfMeasure}" Width="Auto" />
+                <!-- 💰 Новый столбец — сумма материала -->
+                <DataGridTextColumn Header="Сумма материала"
+                                    Binding="{Binding TotalCost, StringFormat={}{0:F2}}"
+                                    Width="Auto"/>
 
                 <!-- Кнопки действий -->
                 <DataGridTemplateColumn Header="Действие" Width="Auto">

@@ -14,11 +14,40 @@ public partial class Materials : UserControl
         InitializeComponent();
         LoadData();
     }
-    public void LoadData()
+    private void LoadData()
     {
-        dgMaterials.ItemsSource = App.DbContext.Materials.Include(m => m.MaterialType).ToList();
-    }
+        // Загружаем материалы вместе с типами
+        var materials = App.DbContext.Materials
+            .Include(m => m.MaterialType)
+            .ToList()
+            .Select(m => new
+            {
+                m.Id,
+                m.Name,
+                MaterialType = m.MaterialType,
+                m.UnitPrice,
+                m.QuantityInStock,
+                m.MinimumQuantity,
+                m.QuantityInPackage,
+                m.UnitOfMeasure,
+                TotalCost = CalculatePurchaseCost(m)
+            })
+            .ToList();
 
+        dgMaterials.ItemsSource = materials;
+    }
+    private string CalculatePurchaseCost(Material material)
+    {
+        if (material.QuantityInStock >= material.MinimumQuantity)
+            return "Not needed";
+
+        var deficit = material.MinimumQuantity - material.QuantityInStock;
+        var packagesNeeded = (int)System.Math.Ceiling(deficit / material.QuantityInPackage);
+        var quantityToBuy = packagesNeeded * material.QuantityInPackage;
+        var cost = quantityToBuy * material.UnitPrice;
+
+        return $"{cost:F2} руб.";
+    }
     private void Delete_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         var anonymousObject = (sender as Button).Tag;
