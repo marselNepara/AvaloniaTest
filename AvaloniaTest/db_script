@@ -1,0 +1,636 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict 9GddefLMq9BAKe1QOwrF4hpqwO7Th9J5FAfh0vHbDMwcHkOPawW2EcWTDTexQhg
+
+-- Dumped from database version 17.6
+-- Dumped by pg_dump version 17.6
+
+-- Started on 2025-11-13 15:23:26
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 4843 (class 1262 OID 42658)
+-- Name: FirstTestAvalonia; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE "FirstTestAvalonia" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'Russian_Russia.1251';
+
+
+ALTER DATABASE "FirstTestAvalonia" OWNER TO postgres;
+
+\unrestrict 9GddefLMq9BAKe1QOwrF4hpqwO7Th9J5FAfh0vHbDMwcHkOPawW2EcWTDTexQhg
+\connect "FirstTestAvalonia"
+\restrict 9GddefLMq9BAKe1QOwrF4hpqwO7Th9J5FAfh0vHbDMwcHkOPawW2EcWTDTexQhg
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 225 (class 1259 OID 42862)
+-- Name: material_suppliers; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.material_suppliers (
+    material_id integer NOT NULL,
+    supplier_id integer NOT NULL
+);
+
+
+ALTER TABLE public.material_suppliers OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 42844)
+-- Name: material_types; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.material_types (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    loss_percentage numeric(5,2) NOT NULL
+);
+
+
+ALTER TABLE public.material_types OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 42843)
+-- Name: material_types_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.material_types_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.material_types_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4844 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: material_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.material_types_id_seq OWNED BY public.material_types.id;
+
+
+--
+-- TOC entry 224 (class 1259 OID 42851)
+-- Name: materials; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.materials (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    material_type_id integer,
+    unit_price numeric(10,2) NOT NULL,
+    quantity_in_stock numeric(10,2) NOT NULL,
+    minimum_quantity numeric(10,2) NOT NULL,
+    quantity_in_package integer NOT NULL,
+    unit_of_measure character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.materials OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 42850)
+-- Name: materials_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.materials_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.materials_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4845 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: materials_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.materials_id_seq OWNED BY public.materials.id;
+
+
+--
+-- TOC entry 220 (class 1259 OID 42837)
+-- Name: product_types; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.product_types (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    coefficient numeric(10,4) NOT NULL
+);
+
+
+ALTER TABLE public.product_types OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 42836)
+-- Name: product_types_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.product_types_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.product_types_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4846 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: product_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.product_types_id_seq OWNED BY public.product_types.id;
+
+
+--
+-- TOC entry 227 (class 1259 OID 42878)
+-- Name: supplier_types; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.supplier_types (
+    id integer NOT NULL,
+    name character varying(10) NOT NULL
+);
+
+
+ALTER TABLE public.supplier_types OWNER TO postgres;
+
+--
+-- TOC entry 226 (class 1259 OID 42877)
+-- Name: supplier_types_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.supplier_types_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.supplier_types_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4847 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: supplier_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.supplier_types_id_seq OWNED BY public.supplier_types.id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 42828)
+-- Name: suppliers; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.suppliers (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    inn character varying(20) NOT NULL,
+    rating integer,
+    start_date date,
+    supplier_type_id integer
+);
+
+
+ALTER TABLE public.suppliers OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 42827)
+-- Name: suppliers_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.suppliers_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.suppliers_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4848 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: suppliers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.suppliers_id_seq OWNED BY public.suppliers.id;
+
+
+--
+-- TOC entry 4661 (class 2604 OID 42847)
+-- Name: material_types id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.material_types ALTER COLUMN id SET DEFAULT nextval('public.material_types_id_seq'::regclass);
+
+
+--
+-- TOC entry 4662 (class 2604 OID 42854)
+-- Name: materials id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.materials ALTER COLUMN id SET DEFAULT nextval('public.materials_id_seq'::regclass);
+
+
+--
+-- TOC entry 4660 (class 2604 OID 42840)
+-- Name: product_types id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_types ALTER COLUMN id SET DEFAULT nextval('public.product_types_id_seq'::regclass);
+
+
+--
+-- TOC entry 4663 (class 2604 OID 42881)
+-- Name: supplier_types id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.supplier_types ALTER COLUMN id SET DEFAULT nextval('public.supplier_types_id_seq'::regclass);
+
+
+--
+-- TOC entry 4659 (class 2604 OID 42831)
+-- Name: suppliers id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.suppliers ALTER COLUMN id SET DEFAULT nextval('public.suppliers_id_seq'::regclass);
+
+
+--
+-- TOC entry 4835 (class 0 OID 42862)
+-- Dependencies: 225
+-- Data for Name: material_suppliers; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.material_suppliers VALUES (13, 19);
+INSERT INTO public.material_suppliers VALUES (6, 19);
+INSERT INTO public.material_suppliers VALUES (15, 1);
+INSERT INTO public.material_suppliers VALUES (5, 6);
+INSERT INTO public.material_suppliers VALUES (1, 4);
+INSERT INTO public.material_suppliers VALUES (15, 20);
+INSERT INTO public.material_suppliers VALUES (7, 9);
+INSERT INTO public.material_suppliers VALUES (12, 4);
+INSERT INTO public.material_suppliers VALUES (1, 1);
+INSERT INTO public.material_suppliers VALUES (14, 19);
+INSERT INTO public.material_suppliers VALUES (16, 17);
+INSERT INTO public.material_suppliers VALUES (12, 1);
+INSERT INTO public.material_suppliers VALUES (3, 9);
+INSERT INTO public.material_suppliers VALUES (6, 20);
+INSERT INTO public.material_suppliers VALUES (12, 12);
+INSERT INTO public.material_suppliers VALUES (4, 9);
+INSERT INTO public.material_suppliers VALUES (11, 11);
+INSERT INTO public.material_suppliers VALUES (17, 17);
+INSERT INTO public.material_suppliers VALUES (10, 12);
+INSERT INTO public.material_suppliers VALUES (8, 17);
+INSERT INTO public.material_suppliers VALUES (1, 6);
+INSERT INTO public.material_suppliers VALUES (11, 15);
+INSERT INTO public.material_suppliers VALUES (3, 3);
+INSERT INTO public.material_suppliers VALUES (5, 9);
+INSERT INTO public.material_suppliers VALUES (8, 19);
+INSERT INTO public.material_suppliers VALUES (17, 20);
+INSERT INTO public.material_suppliers VALUES (18, 20);
+INSERT INTO public.material_suppliers VALUES (9, 18);
+INSERT INTO public.material_suppliers VALUES (20, 20);
+INSERT INTO public.material_suppliers VALUES (3, 4);
+INSERT INTO public.material_suppliers VALUES (16, 15);
+INSERT INTO public.material_suppliers VALUES (5, 10);
+INSERT INTO public.material_suppliers VALUES (15, 15);
+INSERT INTO public.material_suppliers VALUES (4, 4);
+INSERT INTO public.material_suppliers VALUES (13, 12);
+INSERT INTO public.material_suppliers VALUES (6, 7);
+INSERT INTO public.material_suppliers VALUES (14, 12);
+INSERT INTO public.material_suppliers VALUES (10, 18);
+INSERT INTO public.material_suppliers VALUES (18, 7);
+INSERT INTO public.material_suppliers VALUES (7, 11);
+INSERT INTO public.material_suppliers VALUES (18, 13);
+INSERT INTO public.material_suppliers VALUES (4, 3);
+INSERT INTO public.material_suppliers VALUES (10, 16);
+INSERT INTO public.material_suppliers VALUES (10, 7);
+INSERT INTO public.material_suppliers VALUES (14, 16);
+INSERT INTO public.material_suppliers VALUES (14, 8);
+INSERT INTO public.material_suppliers VALUES (19, 16);
+INSERT INTO public.material_suppliers VALUES (11, 14);
+INSERT INTO public.material_suppliers VALUES (16, 13);
+INSERT INTO public.material_suppliers VALUES (13, 16);
+INSERT INTO public.material_suppliers VALUES (11, 13);
+INSERT INTO public.material_suppliers VALUES (7, 2);
+INSERT INTO public.material_suppliers VALUES (15, 14);
+INSERT INTO public.material_suppliers VALUES (17, 7);
+INSERT INTO public.material_suppliers VALUES (8, 2);
+INSERT INTO public.material_suppliers VALUES (7, 7);
+INSERT INTO public.material_suppliers VALUES (3, 5);
+INSERT INTO public.material_suppliers VALUES (20, 7);
+INSERT INTO public.material_suppliers VALUES (5, 5);
+INSERT INTO public.material_suppliers VALUES (9, 7);
+INSERT INTO public.material_suppliers VALUES (1, 10);
+INSERT INTO public.material_suppliers VALUES (9, 16);
+INSERT INTO public.material_suppliers VALUES (4, 10);
+INSERT INTO public.material_suppliers VALUES (19, 12);
+INSERT INTO public.material_suppliers VALUES (9, 8);
+INSERT INTO public.material_suppliers VALUES (18, 2);
+INSERT INTO public.material_suppliers VALUES (20, 5);
+INSERT INTO public.material_suppliers VALUES (16, 10);
+INSERT INTO public.material_suppliers VALUES (6, 2);
+INSERT INTO public.material_suppliers VALUES (19, 8);
+INSERT INTO public.material_suppliers VALUES (17, 5);
+INSERT INTO public.material_suppliers VALUES (20, 8);
+INSERT INTO public.material_suppliers VALUES (8, 11);
+INSERT INTO public.material_suppliers VALUES (19, 5);
+INSERT INTO public.material_suppliers VALUES (13, 8);
+INSERT INTO public.material_suppliers VALUES (12, 10);
+
+
+--
+-- TOC entry 4832 (class 0 OID 42844)
+-- Dependencies: 222
+-- Data for Name: material_types; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.material_types VALUES (1, 'Пластичные материалы', 0.12);
+INSERT INTO public.material_types VALUES (2, 'Добавка', 0.20);
+INSERT INTO public.material_types VALUES (3, 'Электролит', 0.15);
+INSERT INTO public.material_types VALUES (4, 'Глазурь', 0.30);
+INSERT INTO public.material_types VALUES (5, 'Пигмент', 0.25);
+
+
+--
+-- TOC entry 4834 (class 0 OID 42851)
+-- Dependencies: 224
+-- Data for Name: materials; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.materials VALUES (3, 'Гидрослюда', 1, 17.20, 2147.00, 3500.00, 25, 'кг');
+INSERT INTO public.materials VALUES (4, 'Монтмориллонит', 1, 17.67, 3000.00, 3000.00, 30, 'кг');
+INSERT INTO public.materials VALUES (5, 'Перлит', 2, 13.99, 150.00, 1000.00, 50, 'л');
+INSERT INTO public.materials VALUES (6, 'Стекло', 2, 2.40, 3000.00, 1500.00, 500, 'кг');
+INSERT INTO public.materials VALUES (7, 'Дегидратированная глина', 2, 21.95, 3000.00, 2500.00, 20, 'кг');
+INSERT INTO public.materials VALUES (8, 'Шамот', 2, 27.50, 2300.00, 1960.00, 20, 'кг');
+INSERT INTO public.materials VALUES (9, 'Техническая сода', 3, 54.55, 1200.00, 1500.00, 25, 'кг');
+INSERT INTO public.materials VALUES (10, 'Жидкое стекло', 3, 76.59, 500.00, 1500.00, 15, 'кг');
+INSERT INTO public.materials VALUES (11, 'Кварц', 4, 375.96, 1500.00, 2500.00, 10, 'кг');
+INSERT INTO public.materials VALUES (12, 'Полевой шпат', 4, 15.99, 750.00, 1500.00, 100, 'кг');
+INSERT INTO public.materials VALUES (13, 'Краска-раствор', 5, 200.90, 1496.00, 2500.00, 5, 'л');
+INSERT INTO public.materials VALUES (14, 'Порошок цветной', 5, 84.39, 511.00, 1750.00, 25, 'кг');
+INSERT INTO public.materials VALUES (15, 'Кварцевый песок', 2, 4.29, 3000.00, 1600.00, 50, 'кг');
+INSERT INTO public.materials VALUES (16, 'Жильный кварц', 2, 18.60, 2556.00, 1600.00, 25, 'кг');
+INSERT INTO public.materials VALUES (17, 'Барий углекислый', 4, 303.64, 340.00, 1500.00, 25, 'кг');
+INSERT INTO public.materials VALUES (18, 'Бура техническая', 4, 125.99, 165.00, 1300.00, 25, 'кг');
+INSERT INTO public.materials VALUES (19, 'Углещелочной реагент', 3, 3.45, 450.00, 1100.00, 25, 'кг');
+INSERT INTO public.materials VALUES (20, 'Пирофосфат натрия', 3, 700.99, 356.00, 1200.00, 25, 'кг');
+INSERT INTO public.materials VALUES (1, 'Глина', 1, 15.29, 1570.00, 5500.00, 30, 'л');
+
+
+--
+-- TOC entry 4830 (class 0 OID 42837)
+-- Dependencies: 220
+-- Data for Name: product_types; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.product_types VALUES (1, 'Тип продукции 1', 1.2000);
+INSERT INTO public.product_types VALUES (2, 'Тип продукции 2', 8.5900);
+INSERT INTO public.product_types VALUES (3, 'Тип продукции 3', 3.4500);
+INSERT INTO public.product_types VALUES (4, 'Тип продукции 4', 5.6000);
+
+
+--
+-- TOC entry 4837 (class 0 OID 42878)
+-- Dependencies: 227
+-- Data for Name: supplier_types; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.supplier_types VALUES (1, 'ЗАО');
+INSERT INTO public.supplier_types VALUES (2, 'ООО');
+INSERT INTO public.supplier_types VALUES (3, 'ПАО');
+INSERT INTO public.supplier_types VALUES (4, 'ОАО');
+
+
+--
+-- TOC entry 4828 (class 0 OID 42828)
+-- Dependencies: 218
+-- Data for Name: suppliers; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.suppliers VALUES (1, 'БрянскСтройресурс', '9432455179', 8, '2015-12-20', 1);
+INSERT INTO public.suppliers VALUES (2, 'Стройкомплект', '7803888520', 7, '2017-09-13', 1);
+INSERT INTO public.suppliers VALUES (12, 'КурскРесурс', '9032455179', 4, '2021-07-23', 1);
+INSERT INTO public.suppliers VALUES (17, 'Горная компания', '2262431140', 3, '2020-12-22', 1);
+INSERT INTO public.suppliers VALUES (19, 'Арсенал', '3961234561', 5, '2010-11-25', 1);
+INSERT INTO public.suppliers VALUES (3, 'Железногорская руда', '8430391035', 7, '2016-12-23', 2);
+INSERT INTO public.suppliers VALUES (4, 'Белая гора', '4318170454', 8, '2019-05-27', 2);
+INSERT INTO public.suppliers VALUES (5, 'Тульский обрабатывающий завод', '7687851800', 7, '2015-06-16', 2);
+INSERT INTO public.suppliers VALUES (18, 'Минерал Ресурс', '4155215346', 7, '2015-05-22', 2);
+INSERT INTO public.suppliers VALUES (6, 'ГорТехРазработка', '6119144874', 9, '2021-12-27', 3);
+INSERT INTO public.suppliers VALUES (8, 'ХимБытСервис', '8355114917', 5, '2022-03-13', 3);
+INSERT INTO public.suppliers VALUES (11, 'МосКарьер', '4159215346', 2, '2012-07-07', 3);
+INSERT INTO public.suppliers VALUES (15, 'Карелия добыча', '9037040523', 6, '2017-03-09', 3);
+INSERT INTO public.suppliers VALUES (16, 'Московский ХимЗавод', '6221520857', 4, '2015-05-07', 3);
+INSERT INTO public.suppliers VALUES (7, 'Сапфир', '1122170258', 3, '2022-04-10', 4);
+INSERT INTO public.suppliers VALUES (9, 'ВоронежРудоКомбинат', '3532367439', 8, '2023-11-11', 4);
+INSERT INTO public.suppliers VALUES (10, 'Смоленский добывающий комбинат', '2362431140', 3, '2018-11-23', 4);
+INSERT INTO public.suppliers VALUES (13, 'Нижегородская разработка', '3776671267', 9, '2016-05-23', 4);
+INSERT INTO public.suppliers VALUES (14, 'Речная долина', '7447864518', 8, '2015-06-25', 4);
+INSERT INTO public.suppliers VALUES (20, 'КамчаткаСтройМинералы', '9600275878', 7, '2016-12-20', 1);
+
+
+--
+-- TOC entry 4849 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: material_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.material_types_id_seq', 5, true);
+
+
+--
+-- TOC entry 4850 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: materials_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.materials_id_seq', 22, true);
+
+
+--
+-- TOC entry 4851 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: product_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.product_types_id_seq', 4, true);
+
+
+--
+-- TOC entry 4852 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: supplier_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.supplier_types_id_seq', 4, true);
+
+
+--
+-- TOC entry 4853 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: suppliers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.suppliers_id_seq', 22, true);
+
+
+--
+-- TOC entry 4673 (class 2606 OID 42866)
+-- Name: material_suppliers material_suppliers_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.material_suppliers
+    ADD CONSTRAINT material_suppliers_pkey PRIMARY KEY (material_id, supplier_id);
+
+
+--
+-- TOC entry 4669 (class 2606 OID 42849)
+-- Name: material_types material_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.material_types
+    ADD CONSTRAINT material_types_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4671 (class 2606 OID 42856)
+-- Name: materials materials_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.materials
+    ADD CONSTRAINT materials_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4667 (class 2606 OID 42842)
+-- Name: product_types product_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.product_types
+    ADD CONSTRAINT product_types_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4675 (class 2606 OID 42885)
+-- Name: supplier_types supplier_types_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.supplier_types
+    ADD CONSTRAINT supplier_types_name_key UNIQUE (name);
+
+
+--
+-- TOC entry 4677 (class 2606 OID 42883)
+-- Name: supplier_types supplier_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.supplier_types
+    ADD CONSTRAINT supplier_types_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4665 (class 2606 OID 42835)
+-- Name: suppliers suppliers_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.suppliers
+    ADD CONSTRAINT suppliers_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4680 (class 2606 OID 42906)
+-- Name: material_suppliers material_suppliers_material_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.material_suppliers
+    ADD CONSTRAINT material_suppliers_material_id_fkey FOREIGN KEY (material_id) REFERENCES public.materials(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4681 (class 2606 OID 42901)
+-- Name: material_suppliers material_suppliers_supplier_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.material_suppliers
+    ADD CONSTRAINT material_suppliers_supplier_id_fkey FOREIGN KEY (supplier_id) REFERENCES public.suppliers(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4679 (class 2606 OID 42857)
+-- Name: materials materials_material_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.materials
+    ADD CONSTRAINT materials_material_type_id_fkey FOREIGN KEY (material_type_id) REFERENCES public.material_types(id);
+
+
+--
+-- TOC entry 4678 (class 2606 OID 42886)
+-- Name: suppliers suppliers_supplier_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.suppliers
+    ADD CONSTRAINT suppliers_supplier_type_id_fkey FOREIGN KEY (supplier_type_id) REFERENCES public.supplier_types(id);
+
+
+-- Completed on 2025-11-13 15:23:26
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict 9GddefLMq9BAKe1QOwrF4hpqwO7Th9J5FAfh0vHbDMwcHkOPawW2EcWTDTexQhg
+
