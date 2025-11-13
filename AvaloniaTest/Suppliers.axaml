@@ -1,0 +1,74 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaTest.Suppliers">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <Label Grid.Row="0" Content="Suppliers Page"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               FontSize="24"/>
+        <Button Grid.Row="1" Margin="0 0 0 10" Tag="{Binding}" Content="+ Добавить"
+                                Background="{StaticResource AccentColor}"
+                                Foreground="White"
+                                Name="Add"
+                                Click="Add_Click"/>
+        <!-- Таблица -->
+        <DataGrid BorderBrush="#d7d7d7"
+                  BorderThickness="1"
+                  Name="dgSuppliers"
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True">
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+
+                <DataGridTextColumn Header="Наименование" 
+                                    Binding="{Binding Name}" Width="Auto"/>
+
+                <DataGridTextColumn Header="Тип поставщика" 
+                                    Binding="{Binding SupplierType.Name}" Width="Auto"/>
+
+                <DataGridTextColumn Header="ИНН" 
+                                    Binding="{Binding Inn}" Width="Auto"/>
+
+                <DataGridTextColumn Header="Рейтинг" 
+                                    Binding="{Binding Rating}" Width="Auto"/>
+
+                <DataGridTextColumn Header="Дата начала работы" 
+                                    Binding="{Binding StartDate}" Width="Auto"/>
+
+                <!-- Кнопки действий -->
+                <DataGridTemplateColumn Header="Действие" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Spacing="6" HorizontalAlignment="Center">
+                                <Button Tag="{Binding}" Content="✏️ Редактировать"
+                                        Background="{StaticResource BackgroundSecondary}"
+                                        Click="Edit_Click"/>
+                                <Button Tag="{Binding}" Content="🗑 Удалить"
+                                        Background="{StaticResource AccentColor}"
+                                        Foreground="White"
+                                        Click="Delete_Click"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+</UserControl>

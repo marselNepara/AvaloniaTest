@@ -1,0 +1,37 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaTest.AddEditMaterialWindow"
+        Title="AddEditMaterialWindow">
+  <Grid>
+        <StackPanel Margin="20">
+            <Label Content="Name"/>
+            <TextBox Name="nameMaterial" Text="{Binding Name, Mode=TwoWay}"/>
+            
+            <Label Content="Type"/>
+            <ComboBox Name="typeMaterial" DisplayMemberBinding="{Binding Name}"/>
+            
+            <Label Content="Price"/>
+            <TextBox Name="priceMaterial" Text="{Binding UnitPrice, Mode=TwoWay}"/>
+            
+            <Label Content="Quantity in Stock"/>
+            <TextBox Name="stockMaterial" Text="{Binding QuantityInStock, Mode=TwoWay}"/>
+            
+            <Label Content="Minimum Quantity"/>
+            <TextBox Name="minQuantityMaterial" Text="{Binding MinimumQuantity, Mode=TwoWay}"/>
+            
+            <Label Content="Quantity in Package"/>
+            <TextBox Name="packageMaterial" Text="{Binding QuantityInPackage, Mode=TwoWay}"/>
+            
+            <Label Content="Unit of Measure"/>
+            <TextBox Name="unitMaterial" Text="{Binding UnitOfMeasure, Mode=TwoWay}"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                <Button Name="btnClose" Content="Close" Click="Close_Click"/>
+                <Button Name="btnSave" Content="Save" Click="Save_Click" Margin="10,0,0,0"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

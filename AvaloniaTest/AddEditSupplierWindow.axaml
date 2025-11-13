@@ -1,0 +1,32 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaTest.AddEditSupplierWindow"
+        Title="AddEditSupplierWindow">
+
+    <Grid>
+        <StackPanel Margin="20" Spacing="10">
+            <Label Content="Name"/>
+            <TextBox Name="nameSupplier" Text="{Binding Name, Mode=TwoWay}"/>
+
+            <Label Content="INN"/>
+            <TextBox Name="innSupplier" Text="{Binding Inn, Mode=TwoWay}"/>
+
+            <Label Content="Rating"/>
+            <TextBox Name="ratingSupplier" Text="{Binding Rating, Mode=TwoWay}"/>
+
+            <Label Content="Start Date"/>
+            <DatePicker Name="startDateSupplier"/>
+
+            <Label Content="Supplier Type"/>
+            <ComboBox Name="typeSupplier" DisplayMemberBinding="{Binding Name}"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" Spacing="10">
+                <Button Name="btnClose" Content="Close" Click="Close_Click"/>
+                <Button Name="btnSave" Content="Save" Click="Save_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

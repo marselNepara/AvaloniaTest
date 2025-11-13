@@ -1,0 +1,99 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="AvaloniaTest.CalculationPage"
+             d:DesignWidth="800" d:DesignHeight="450"
+             Background="#FFFFFF">
+
+    <Border Background="#FFFFFF" CornerRadius="16" Padding="30" Margin="20"
+            BorderBrush="#ABCFCE" BorderThickness="2" >
+        <StackPanel Spacing="20">
+
+            <!-- Заголовок -->
+            <TextBlock Text="Product Calculation"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="#546F94"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,10"/>
+
+            <!-- Основная сетка -->
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="250"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Поля -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Product Type:" 
+                           VerticalAlignment="Center" Foreground="#546F94"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" Name="cmbProductType"
+                          Background="#FFFFFF" BorderBrush="#ABCFCE"
+                          CornerRadius="6" Margin="10,5,0,5"
+                          DisplayMemberBinding="{Binding Name}"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Material Type:" 
+                           VerticalAlignment="Center" Foreground="#546F94"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" Name="cmbMaterialType"
+                          Background="#FFFFFF" BorderBrush="#ABCFCE"
+                          CornerRadius="6" Margin="10,5,0,5"
+                          DisplayMemberBinding="{Binding Name}"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Material Quantity:" 
+                           VerticalAlignment="Center" Foreground="#546F94"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Name="txtMaterialQty"
+                         Margin="10,5,0,5" BorderBrush="#ABCFCE" 
+                         CornerRadius="6" Text="100"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Parameter 1:" 
+                           VerticalAlignment="Center" Foreground="#546F94"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Name="txtParam1"
+                         Margin="10,5,0,5" BorderBrush="#ABCFCE"
+                         CornerRadius="6" Text="1,0"/>
+
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Parameter 2:" 
+                           VerticalAlignment="Center" Foreground="#546F94"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Name="txtParam2"
+                         Margin="10,5,0,5" BorderBrush="#ABCFCE"
+                         CornerRadius="6" Text="1,0"/>
+
+                <!-- Кнопка расчёта -->
+                <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                        Name="Calculate"
+                        Content="🔢 Calculate"
+                        Click="Calculate_Click"
+                        Background="#546F94"
+                        Foreground="White"
+                        HorizontalAlignment="Center"
+                        Padding="20,10"
+                        CornerRadius="10"
+                        Margin="0,20,0,0"/>
+
+                <!-- Результат -->
+                <Border Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                        Background="#ABCFCE" CornerRadius="8"
+                        Padding="10" Margin="0,20,0,0">
+                    <TextBlock Name="txtResult"
+                               FontSize="16"
+                               FontWeight="SemiBold"
+                               Foreground="#546F94"
+                               HorizontalAlignment="Center"
+                               Text=""/>
+                </Border>
+
+            </Grid>
+        </StackPanel>
+    </Border>
+</UserControl>

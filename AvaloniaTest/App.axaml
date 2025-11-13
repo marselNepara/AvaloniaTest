@@ -1,0 +1,48 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="AvaloniaTest.App"
+             RequestedThemeVariant="Light">
+
+  <!-- –есурсы (цвета, кисти и т.д.) -->
+  <Application.Resources>
+    <!-- ÷вета -->
+    <Color x:Key="ColorBackgroundMain">#FFFFFFFF</Color>
+    <Color x:Key="ColorBackgroundSecondary">#ABCFCE</Color>
+    <Color x:Key="ColorAccent">#546F94</Color>
+    <Color x:Key="ColorText">#000000</Color>
+
+    <!--  исти -->
+    <SolidColorBrush x:Key="BackgroundMain" Color="{StaticResource ColorBackgroundMain}"/>
+    <SolidColorBrush x:Key="BackgroundSecondary" Color="{StaticResource ColorBackgroundSecondary}"/>
+    <SolidColorBrush x:Key="AccentColor" Color="{StaticResource ColorAccent}"/>
+    <SolidColorBrush x:Key="TextColor" Color="{StaticResource ColorText}"/>
+  </Application.Resources>
+
+  <Application.Styles>
+    <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+    <FluentTheme />
+
+    <Style Selector="Window">
+      <Setter Property="Background" Value="{StaticResource BackgroundMain}" />
+    </Style>
+
+    <Style Selector="Button">
+      <Setter Property="Background" Value="{StaticResource BackgroundSecondary}" />
+      <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="Padding" Value="10,5" />
+    </Style>
+
+    <Style Selector="Button:pointerover">
+      <Setter Property="Background" Value="{StaticResource AccentColor}" />
+      <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style Selector="Button:pressed">
+      <Setter Property="Background" Value="#3C5477" />
+      <Setter Property="Foreground" Value="White" />
+    </Style>
+  </Application.Styles>
+</Application>
