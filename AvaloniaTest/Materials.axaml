@@ -39,12 +39,10 @@
                 <DataGridTextColumn Header="Кол-во в упаковке" Binding="{Binding QuantityInPackage}" Width="Auto"/>
                 <DataGridTextColumn Header="Ед. изм." Binding="{Binding UnitOfMeasure}" Width="Auto"/>
 
-                <!-- 💰 Новый столбец — сумма материала -->
                 <DataGridTextColumn Header="Сумма материала"
                                     Binding="{Binding TotalCost, StringFormat={}{0:F2}}"
                                     Width="Auto"/>
 
-                <!-- Кнопки действий -->
                 <DataGridTemplateColumn Header="Действие" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

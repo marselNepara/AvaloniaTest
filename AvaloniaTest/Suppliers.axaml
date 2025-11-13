@@ -13,7 +13,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Заголовок -->
         <Label Grid.Row="0" Content="Suppliers Page"
                HorizontalAlignment="Left"
                VerticalAlignment="Center"
@@ -23,7 +22,7 @@
                                 Foreground="White"
                                 Name="Add"
                                 Click="Add_Click"/>
-        <!-- Таблица -->
+
         <DataGrid BorderBrush="#d7d7d7"
                   BorderThickness="1"
                   Name="dgSuppliers"
@@ -50,7 +49,6 @@
                 <DataGridTextColumn Header="Дата начала работы" 
                                     Binding="{Binding StartDate}" Width="Auto"/>
 
-                <!-- Кнопки действий -->
                 <DataGridTemplateColumn Header="Действие" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

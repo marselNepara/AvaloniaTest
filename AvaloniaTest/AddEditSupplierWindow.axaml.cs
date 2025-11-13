@@ -1,8 +1,9 @@
-using Avalonia.Controls;
+п»їusing Avalonia.Controls;
 using Avalonia.Interactivity;
 using AvaloniaTest.Data;
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace AvaloniaTest
 {
@@ -23,16 +24,14 @@ namespace AvaloniaTest
             DataContext = currentSupplier;
             LoadTypes();
 
-            // Установка значений в поля
             nameSupplier.Text = supplier.Name;
             innSupplier.Text = supplier.Inn;
             ratingSupplier.Text = supplier.Rating?.ToString() ?? "";
 
-            // Если в модели DateOnly, преобразуем в DateTime, затем в DateTimeOffset для SelectedDate
             if (supplier.StartDate.HasValue)
             {
-                var dt = supplier.StartDate.Value.ToDateTime(TimeOnly.MinValue); // DateTime
-                startDateSupplier.SelectedDate = new DateTimeOffset(dt);        // DateTimeOffset
+                var dt = supplier.StartDate.Value.ToDateTime(TimeOnly.MinValue);
+                startDateSupplier.SelectedDate = new DateTimeOffset(dt);
             }
 
             if (supplier.SupplierTypeId.HasValue)
@@ -54,31 +53,68 @@ namespace AvaloniaTest
 
         private void Save_Click(object? sender, RoutedEventArgs e)
         {
-            currentSupplier.Name = nameSupplier.Text!;
-            currentSupplier.Inn = innSupplier.Text!;
-            currentSupplier.Rating = int.TryParse(ratingSupplier.Text, out int r) ? r : null;
+            ClearErrors();
+            bool isValid = true;
+            SupplierType? selectedType = null;
 
-            // Безопасное чтение SelectedDate: берём DateTime из DateTimeOffset
-            if (startDateSupplier.SelectedDate.HasValue)
+            if (string.IsNullOrWhiteSpace(nameSupplier.Text))
             {
-                var dto = startDateSupplier.SelectedDate.Value; // DateTimeOffset
-                currentSupplier.StartDate = DateOnly.FromDateTime(dto.DateTime);
+                errorName.Text = "РќР°Р·РІР°РЅРёРµ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј.";
+                isValid = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(innSupplier.Text) ||
+                !Regex.IsMatch(innSupplier.Text, @"^\d{10}(\d{2})?$"))
+            {
+                errorInn.Text = "РРќРќ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ 10 РёР»Рё 12 С†РёС„СЂ.";
+                isValid = false;
+            }
+
+            if (!int.TryParse(ratingSupplier.Text, out int rating) || rating < 1 || rating > 10)
+            {
+                errorRating.Text = "Р РµР№С‚РёРЅРі РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ С‡РёСЃР»РѕРј РѕС‚ 1 РґРѕ 10.";
+                isValid = false;
+            }
+
+            if (!startDateSupplier.SelectedDate.HasValue)
+            {
+                errorDate.Text = "РЈРєР°Р¶РёС‚Рµ РґР°С‚Сѓ РЅР°С‡Р°Р»Р° СЃРѕС‚СЂСѓРґРЅРёС‡РµСЃС‚РІР°.";
+                isValid = false;
+            }
+
+            if (typeSupplier.SelectedItem is SupplierType type)
+            {
+                selectedType = type;
             }
             else
             {
-                currentSupplier.StartDate = null;
+                errorType.Text = "Р’С‹Р±РµСЂРёС‚Рµ С‚РёРї РїРѕСЃС‚Р°РІС‰РёРєР°.";
+                isValid = false;
             }
 
-            if (typeSupplier.SelectedItem is SupplierType selectedType)
-            {
-                currentSupplier.SupplierTypeId = selectedType.Id;
-            }
+            if (!isValid)
+                return;
+
+            currentSupplier.Name = nameSupplier.Text!.Trim();
+            currentSupplier.Inn = innSupplier.Text!.Trim();
+            currentSupplier.Rating = rating;
+            currentSupplier.StartDate = DateOnly.FromDateTime(startDateSupplier.SelectedDate!.Value.DateTime);
+            currentSupplier.SupplierTypeId = selectedType!.Id;
 
             if (currentSupplier.Id == 0)
                 App.DbContext.Suppliers.Add(currentSupplier);
 
             App.DbContext.SaveChanges();
             Close();
+        }
+
+        private void ClearErrors()
+        {
+            errorName.Text = "";
+            errorInn.Text = "";
+            errorRating.Text = "";
+            errorDate.Text = "";
+            errorType.Text = "";
         }
     }
 }

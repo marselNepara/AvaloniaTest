@@ -16,7 +16,6 @@ public partial class Materials : UserControl
     }
     private void LoadData()
     {
-        // Загружаем материалы вместе с типами
         var materials = App.DbContext.Materials
             .Include(m => m.MaterialType)
             .ToList()

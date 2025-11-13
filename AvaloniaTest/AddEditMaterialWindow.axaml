@@ -1,37 +1,50 @@
-<Window xmlns="https://github.com/avaloniaui"
+﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d"
         x:Class="AvaloniaTest.AddEditMaterialWindow"
-        Title="AddEditMaterialWindow">
-  <Grid>
-        <StackPanel Margin="20">
-            <Label Content="Name"/>
-            <TextBox Name="nameMaterial" Text="{Binding Name, Mode=TwoWay}"/>
-            
-            <Label Content="Type"/>
-            <ComboBox Name="typeMaterial" DisplayMemberBinding="{Binding Name}"/>
-            
-            <Label Content="Price"/>
-            <TextBox Name="priceMaterial" Text="{Binding UnitPrice, Mode=TwoWay}"/>
-            
-            <Label Content="Quantity in Stock"/>
-            <TextBox Name="stockMaterial" Text="{Binding QuantityInStock, Mode=TwoWay}"/>
-            
-            <Label Content="Minimum Quantity"/>
-            <TextBox Name="minQuantityMaterial" Text="{Binding MinimumQuantity, Mode=TwoWay}"/>
-            
-            <Label Content="Quantity in Package"/>
-            <TextBox Name="packageMaterial" Text="{Binding QuantityInPackage, Mode=TwoWay}"/>
-            
-            <Label Content="Unit of Measure"/>
-            <TextBox Name="unitMaterial" Text="{Binding UnitOfMeasure, Mode=TwoWay}"/>
+        Title="Add / Edit Material"
+        WindowState="Maximized">
 
-            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                <Button Name="btnClose" Content="Close" Click="Close_Click"/>
-                <Button Name="btnSave" Content="Save" Click="Save_Click" Margin="10,0,0,0"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="40" Spacing="8">
+            <TextBlock Text="Добавление / редактирование материала"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Margin="0,0,0,20"/>
+
+            <Label Content="Наименование:"/>
+            <TextBox Name="nameMaterial" Watermark="Введите название материала"/>
+            <TextBlock Name="errorName" Foreground="Red" FontSize="12"/>
+
+            <Label Content="Тип материала:"/>
+            <ComboBox Name="typeMaterial" DisplayMemberBinding="{Binding Name}"/>
+            <TextBlock Name="errorType" Foreground="Red" FontSize="12"/>
+
+            <Label Content="Цена за единицу:"/>
+            <TextBox Name="priceMaterial" Watermark="Введите положительное число"/>
+            <TextBlock Name="errorPrice" Foreground="Red" FontSize="12"/>
+
+            <Label Content="Количество на складе:"/>
+            <TextBox Name="stockMaterial" Watermark="Введите положительное число"/>
+            <TextBlock Name="errorStock" Foreground="Red" FontSize="12"/>
+
+            <Label Content="Минимальное количество:"/>
+            <TextBox Name="minQuantityMaterial" Watermark="Введите положительное число"/>
+            <TextBlock Name="errorMinQuantity" Foreground="Red" FontSize="12"/>
+
+            <Label Content="Количество в упаковке:"/>
+            <TextBox Name="packageMaterial" Watermark="Введите целое число"/>
+            <TextBlock Name="errorPackage" Foreground="Red" FontSize="12"/>
+            <Label Content="Единица измерения:"/>
+            <TextBox Name="unitMaterial" Watermark="Введите единицу измерения (например, кг, шт, м)"/>
+            <TextBlock Name="errorUnit" Foreground="Red" FontSize="12"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0" Spacing="10">
+                <Button Name="btnClose" Content="Закрыть" Click="Close_Click"/>
+                <Button Name="btnSave" Content="Сохранить" Click="Save_Click" Background="#0066cc" Foreground="White"/>
             </StackPanel>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </Window>

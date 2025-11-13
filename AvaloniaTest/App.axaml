@@ -3,15 +3,12 @@
              x:Class="AvaloniaTest.App"
              RequestedThemeVariant="Light">
 
-  <!-- –есурсы (цвета, кисти и т.д.) -->
   <Application.Resources>
-    <!-- ÷вета -->
     <Color x:Key="ColorBackgroundMain">#FFFFFFFF</Color>
     <Color x:Key="ColorBackgroundSecondary">#ABCFCE</Color>
     <Color x:Key="ColorAccent">#546F94</Color>
     <Color x:Key="ColorText">#000000</Color>
 
-    <!--  исти -->
     <SolidColorBrush x:Key="BackgroundMain" Color="{StaticResource ColorBackgroundMain}"/>
     <SolidColorBrush x:Key="BackgroundSecondary" Color="{StaticResource ColorBackgroundSecondary}"/>
     <SolidColorBrush x:Key="AccentColor" Color="{StaticResource ColorAccent}"/>
