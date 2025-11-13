@@ -65,11 +65,9 @@ public partial class AppDbContext : DbContext
                     "MaterialSupplier",
                     r => r.HasOne<Supplier>().WithMany()
                         .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("material_suppliers_supplier_id_fkey"),
                     l => l.HasOne<Material>().WithMany()
                         .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("material_suppliers_material_id_fkey"),
                     j =>
                     {

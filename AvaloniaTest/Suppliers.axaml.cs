@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using AvaloniaTest.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace AvaloniaTest
 {
@@ -17,7 +18,6 @@ namespace AvaloniaTest
             LoadData();
         }
 
-        // Загрузка данных в таблицу
         private void LoadData()
         {
             dgSuppliers.ItemsSource = App.DbContext.Suppliers
@@ -35,22 +35,20 @@ namespace AvaloniaTest
                 .ToList();
         }
 
-        // Добавление нового поставщика
+      
         private async void Add_Click(object? sender, RoutedEventArgs e)
         {
             var addWindow = new AddEditSupplierWindow();
             var parent = this.VisualRoot as Window;
 
             await addWindow.ShowDialog(parent);
-            LoadData(); // обновляем таблицу после закрытия окна
+            LoadData(); 
         }
 
-        // Редактирование поставщика
         private async void Edit_Click(object? sender, RoutedEventArgs e)
         {
             if (sender is Button button && button.DataContext is not null)
             {
-                // получаем Id из объекта строки
                 var idProp = button.DataContext.GetType().GetProperty("Id");
                 if (idProp == null) return;
 
@@ -66,13 +64,12 @@ namespace AvaloniaTest
                     var parent = this.VisualRoot as Window;
 
                     await editWindow.ShowDialog(parent);
-                    LoadData(); // обновляем данные
+                    LoadData(); 
                 }
             }
         }
 
-        // Удаление поставщика
-        private void Delete_Click(object? sender, RoutedEventArgs e)
+        private void Delete_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             var anonymousObject = (sender as Button)?.Tag;
             if (anonymousObject == null)
@@ -84,7 +81,6 @@ namespace AvaloniaTest
 
             var id = (int)idProperty.GetValue(anonymousObject)!;
 
-            // Находим поставщика и удаляем
             var supplier = App.DbContext.Suppliers.FirstOrDefault(s => s.Id == id);
             if (supplier != null)
             {
